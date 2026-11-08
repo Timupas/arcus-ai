@@ -1,0 +1,425 @@
+/**
+ * settings.css
+ * Styles for the SettingsView component — glass-morphism cards,
+ * neon toggle switches, section headers with accent underlines.
+ */
+
+/* ─── View container ──────────────────────────────────────────────────────────── */
+
+.settings-view {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 24px 32px 48px;
+  box-sizing: border-box;
+}
+
+/* Custom scrollbar */
+.settings-view::-webkit-scrollbar {
+  width: 6px;
+}
+.settings-view::-webkit-scrollbar-track {
+  background: transparent;
+}
+.settings-view::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 255, 0.2);
+  border-radius: 3px;
+}
+.settings-view::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 212, 255, 0.4);
+}
+
+/* ─── Section ─────────────────────────────────────────────────────────────────── */
+
+.settings-section {
+  margin-bottom: 36px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #e0e0e0;
+  margin: 0 0 4px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.5px;
+}
+
+.section-icon {
+  font-size: 20px;
+}
+
+.section-subtitle {
+  font-size: 13px;
+  color: #777;
+  margin: 0 0 16px 0;
+}
+
+/* ─── Permissions grid ────────────────────────────────────────────────────────── */
+
+.permissions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.permission-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.permission-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.permission-card.allowed {
+  border-color: rgba(0, 255, 136, 0.15);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.03);
+}
+
+.permission-card.disabled {
+  border-color: rgba(255, 60, 60, 0.15);
+  box-shadow: 0 0 20px rgba(255, 60, 60, 0.03);
+}
+
+.permission-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.permission-status {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.status-allowed {
+  background: rgba(0, 255, 136, 0.15);
+  color: #00ff88;
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.2);
+}
+
+.status-blocked {
+  background: rgba(255, 60, 60, 0.15);
+  color: #ff3c3c;
+  box-shadow: 0 0 8px rgba(255, 60, 60, 0.2);
+}
+
+.permission-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #d0d0d0;
+  flex: 1;
+}
+
+.permission-desc {
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ─── Toggle switch ───────────────────────────────────────────────────────────── */
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  align-self: flex-end;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  bottom: 3px;
+  background: #555;
+  border-radius: 50%;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background: rgba(0, 212, 255, 0.25);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.3), inset 0 0 6px rgba(0, 212, 255, 0.1);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(20px);
+  background: #00d4ff;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+}
+
+/* ─── Whitelist ───────────────────────────────────────────────────────────────── */
+
+.whitelist-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.whitelist-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.whitelist-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(0, 212, 255, 0.15);
+}
+
+.whitelist-icon {
+  font-size: 20px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 212, 255, 0.08);
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.whitelist-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.whitelist-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #d0d0d0;
+}
+
+.whitelist-path {
+  font-size: 11px;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'Consolas', 'Courier New', monospace;
+}
+
+/* ─── Blocked paths ───────────────────────────────────────────────────────────── */
+
+.blocked-paths-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.blocked-path-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255, 60, 60, 0.03);
+  border: 1px solid rgba(255, 60, 60, 0.08);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.blocked-path-item:hover {
+  background: rgba(255, 60, 60, 0.06);
+  border-color: rgba(255, 60, 60, 0.15);
+}
+
+.path-lock-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.path-text {
+  flex: 1;
+  font-size: 13px;
+  color: #999;
+  font-family: 'Consolas', 'Courier New', monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Buttons ─────────────────────────────────────────────────────────────────── */
+
+.btn-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 8px;
+  color: #00d4ff;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  -webkit-app-region: no-drag;
+}
+
+.btn-add:hover {
+  background: rgba(0, 212, 255, 0.15);
+  border-color: rgba(0, 212, 255, 0.4);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.15);
+}
+
+.btn-add-icon {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.btn-remove {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 60, 60, 0.06);
+  border: 1px solid rgba(255, 60, 60, 0.12);
+  border-radius: 6px;
+  color: #ff5555;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  font-family: inherit;
+  -webkit-app-region: no-drag;
+}
+
+.btn-remove:hover {
+  background: rgba(255, 60, 60, 0.15);
+  border-color: rgba(255, 60, 60, 0.3);
+  box-shadow: 0 0 10px rgba(255, 60, 60, 0.2);
+}
+
+/* ─── Confirmations ───────────────────────────────────────────────────────────── */
+
+.confirmations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+.confirmation-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.confirmation-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.confirmation-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.confirmation-label {
+  font-size: 14px;
+  color: #d0d0d0;
+  font-weight: 500;
+}
+
+.confirmation-desc {
+  font-size: 12px;
+  color: #666;
+}
+
+/* ─── Danger zone ─────────────────────────────────────────────────────────────── */
+
+.danger-zone {
+  margin-top: 8px;
+  padding: 20px;
+  background: rgba(255, 60, 60, 0.03);
+  border: 1px dashed rgba(255, 60, 60, 0.15);
+  border-radius: 12px;
+}
+
+.danger-title {
+  font-size: 14px;
+  color: #ff5555;
+  margin: 0 0 4px 0;
+  font-weight: 600;
+}
+
+.danger-desc {
+  font-size: 12px;
+  color: #777;
+  margin: 0 0 14px 0;
+}
+
+.btn-danger {
+  padding: 8px 20px;
+  background: rgba(255, 60, 60, 0.1);
+  border: 1px solid rgba(255, 60, 60, 0.3);
+  border-radius: 8px;
+  color: #ff5555;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  -webkit-app-region: no-drag;
+}
+
+.btn-danger:hover {
+  background: rgba(255, 60, 60, 0.2);
+  border-color: rgba(255, 60, 60, 0.5);
+  box-shadow: 0 0 20px rgba(255, 60, 60, 0.15);
+}

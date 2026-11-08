@@ -1,0 +1,349 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * core-view.css
+ * Styles for CoreView, ParticleSphere container, StatusRing, PTT button,
+ * text input, and chat log.
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Layout ───────────────────────────────────────────────────────────────── */
+
+.core-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px 16px;
+    box-sizing: border-box;
+    gap: 12px;
+    overflow: hidden;
+}
+
+/* ─── Sphere container ─────────────────────────────────────────────────────── */
+
+.core-view__sphere-container {
+    position: relative;
+    width: 420px;
+    height: 420px;
+    flex-shrink: 0;
+}
+
+.particle-sphere {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ─── Status text ──────────────────────────────────────────────────────────── */
+
+.core-view__status {
+    font-family: 'Segoe UI', 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.core-view__status--idle {
+    color: #00d4ff;
+    text-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
+}
+
+.core-view__status--listening {
+    color: #00ff88;
+    text-shadow: 0 0 16px rgba(0, 255, 136, 0.6);
+    animation: status-pulse-green 1.2s ease-in-out infinite;
+}
+
+.core-view__status--speaking {
+    color: #00d4ff;
+    text-shadow: 0 0 16px rgba(0, 212, 255, 0.6);
+    animation: status-pulse-blue 0.8s ease-in-out infinite;
+}
+
+@keyframes status-pulse-green {
+    0%, 100% { opacity: 0.7; }
+    50%      { opacity: 1.0; }
+}
+
+@keyframes status-pulse-blue {
+    0%, 100% { opacity: 0.7; text-shadow: 0 0 12px rgba(0, 212, 255, 0.4); }
+    50%      { opacity: 1.0; text-shadow: 0 0 24px rgba(0, 212, 255, 0.8); }
+}
+
+/* ─── Controls row ─────────────────────────────────────────────────────────── */
+
+.core-view__controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ─── Microphone (Push‑to‑Talk) button ─────────────────────────────────────── */
+
+.core-view__mic-btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 212, 255, 0.5);
+    background: rgba(0, 212, 255, 0.08);
+    color: #00d4ff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    outline: none;
+    position: relative;
+}
+
+.core-view__mic-btn::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.core-view__mic-btn:hover {
+    border-color: rgba(0, 212, 255, 0.9);
+    background: rgba(0, 212, 255, 0.14);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
+}
+
+.core-view__mic-btn:active,
+.core-view__mic-btn--active {
+    border-color: #00ff88;
+    color: #00ff88;
+    background: rgba(0, 255, 136, 0.12);
+    box-shadow: 0 0 28px rgba(0, 255, 136, 0.35), inset 0 0 12px rgba(0, 255, 136, 0.08);
+}
+
+.core-view__mic-btn--active::before {
+    border-color: rgba(0, 255, 136, 0.3);
+    animation: mic-ring-pulse 1s ease-in-out infinite;
+}
+
+@keyframes mic-ring-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50%      { transform: scale(1.12); opacity: 1; }
+}
+
+/* Mode toggle button */
+.core-view__mode-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    background: rgba(0, 212, 255, 0.06);
+    color: rgba(0, 212, 255, 0.7);
+    font-family: 'Segoe UI', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.core-view__mode-btn:hover {
+    border-color: rgba(0, 212, 255, 0.6);
+    color: #00d4ff;
+}
+
+/* ─── Text input form ──────────────────────────────────────────────────────── */
+
+.core-view__input-form {
+    display: flex;
+    width: 100%;
+    max-width: 520px;
+    gap: 8px;
+}
+
+.core-view__input {
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 212, 255, 0.25);
+    background: rgba(255, 255, 255, 0.04);
+    color: #e0e0e0;
+    font-family: 'Segoe UI', 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    /* Glass morphism */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.core-view__input::placeholder {
+    color: rgba(0, 212, 255, 0.35);
+}
+
+.core-view__input:focus {
+    border-color: rgba(0, 212, 255, 0.6);
+    box-shadow: 0 0 12px rgba(0, 212, 255, 0.15);
+}
+
+.core-view__send-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    background: rgba(0, 212, 255, 0.1);
+    color: #00d4ff;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.core-view__send-btn:hover {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: rgba(0, 212, 255, 0.6);
+    box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
+}
+
+/* ─── Chat log ─────────────────────────────────────────────────────────────── */
+
+.core-view__chat {
+    width: 100%;
+    max-width: 520px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 212, 255, 0.12);
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Custom scrollbar */
+.core-view__chat::-webkit-scrollbar {
+    width: 4px;
+}
+
+.core-view__chat::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.core-view__chat::-webkit-scrollbar-thumb {
+    background: rgba(0, 212, 255, 0.2);
+    border-radius: 4px;
+}
+
+.core-view__chat-empty {
+    color: rgba(0, 212, 255, 0.3);
+    font-size: 13px;
+    text-align: center;
+    padding: 16px 0;
+    letter-spacing: 0.5px;
+}
+
+.core-view__chat-msg {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    animation: msg-fade-in 0.3s ease;
+}
+
+@keyframes msg-fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.core-view__chat-msg--user {
+    background: rgba(0, 212, 255, 0.06);
+    border-left: 2px solid rgba(0, 212, 255, 0.4);
+}
+
+.core-view__chat-msg--assistant {
+    background: rgba(0, 255, 136, 0.04);
+    border-left: 2px solid rgba(0, 255, 136, 0.3);
+}
+
+.core-view__chat-role {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.core-view__chat-msg--user .core-view__chat-role {
+    color: rgba(0, 212, 255, 0.7);
+}
+
+.core-view__chat-msg--assistant .core-view__chat-role {
+    color: rgba(0, 255, 136, 0.7);
+}
+
+.core-view__chat-text {
+    font-size: 14px;
+    color: #d0d0d0;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+/* ─── StatusRing SVG animations ────────────────────────────────────────────── */
+
+.status-ring--idle {
+    animation: ring-rotate 12s linear infinite;
+}
+
+.status-ring--listening {
+    animation: ring-rotate 4s linear infinite, ring-pulse-green 1.5s ease-in-out infinite;
+}
+
+.status-ring--speaking {
+    animation: ring-rotate 3s linear infinite, ring-pulse-blue 0.6s ease-in-out infinite;
+}
+
+@keyframes ring-rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes ring-pulse-green {
+    0%, 100% { opacity: 0.6; }
+    50%      { opacity: 1.0; }
+}
+
+@keyframes ring-pulse-blue {
+    0%, 100% { opacity: 0.5; filter: brightness(1); }
+    50%      { opacity: 1.0; filter: brightness(1.4); }
+}
+
+/* ─── Responsive ───────────────────────────────────────────────────────────── */
+
+@media (max-height: 720px) {
+    .core-view__sphere-container {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 600px) {
+    .core-view__sphere-container {
+        width: 280px;
+        height: 280px;
+    }
+
+    .core-view__input-form,
+    .core-view__chat {
+        max-width: 100%;
+    }
+}

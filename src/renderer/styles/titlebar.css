@@ -1,0 +1,135 @@
+/**
+ * titlebar.css
+ * Styles for the custom frameless window titlebar.
+ * Fixed top, full width, 40px height with drag region.
+ */
+
+/* ─── Titlebar container ──────────────────────────────────────────────────────── */
+
+.titlebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #000000;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  -webkit-app-region: drag;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ─── Logo (left) ─────────────────────────────────────────────────────────────── */
+
+.titlebar-logo {
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.logo-text {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #00d4ff;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.4),
+               0 0 20px rgba(0, 212, 255, 0.15);
+  font-family: 'Segoe UI', 'Consolas', monospace;
+}
+
+/* ─── Tab navigation (center) ─────────────────────────────────────────────────── */
+
+.titlebar-tabs {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  position: relative;
+  gap: 0;
+}
+
+.tab-btn {
+  height: 100%;
+  padding: 0 20px;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.25s ease;
+  font-family: inherit;
+  position: relative;
+  -webkit-app-region: no-drag;
+  letter-spacing: 0.3px;
+}
+
+.tab-btn:hover {
+  color: #aaa;
+}
+
+.tab-btn.active {
+  color: #e0e0e0;
+}
+
+/* Animated underline indicator */
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: #00d4ff;
+  border-radius: 1px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.5),
+              0 0 16px rgba(0, 212, 255, 0.2);
+}
+
+/* ─── Window controls (right) ─────────────────────────────────────────────────── */
+
+.titlebar-controls {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.control-btn {
+  width: 46px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  -webkit-app-region: no-drag;
+}
+
+.control-btn:hover {
+  color: #d0d0d0;
+}
+
+.control-minimize:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.control-maximize:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.control-close:hover {
+  background: rgba(232, 17, 35, 0.9);
+  color: #ffffff;
+}
+
+.control-btn svg {
+  flex-shrink: 0;
+}
